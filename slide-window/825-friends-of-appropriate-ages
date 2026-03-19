@@ -1,0 +1,31 @@
+class Solution {
+    public int numFriendRequests(int[] ages) {
+        //大胆去尝试自己的思路
+        //枚举 x, 统计 x 发出的请求。
+        //x -> y 的要求： 0.5*x + 7 < y <= x . 第三个条件被第二个包含。
+        // 0.5 * x + 7 <= x 要想不是空集，则 x > 14.
+        //转化为 [0.5 * x + 8, x] .麻烦在于有重复的年龄。把 right 往右移动。
+        //用桶排序！
+        int[] buckets = new int[121];
+        for(int age : ages){
+            buckets[age]++;
+        }
+
+        int cnt = 0;
+        int l = 15;
+        int ans = 0;
+        for(int r = 15; r < 121; r++){
+            //deltaR = 1, deltaL = 0.5, left 最多移动一步
+            cnt += buckets[r];
+
+            if(2 * l <= r + 14){
+                cnt -= buckets[l];
+                l++;
+            }
+
+            //如ages = [22,23,24,25,26,27,28,29,30,31], 如果 age == 30 的有3个人。
+            ans += buckets[r] * (cnt - 1);
+        }
+        return ans;
+    }
+}
