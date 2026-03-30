@@ -1,0 +1,21 @@
+class Solution {
+    public int triangleNumber(int[] nums) {
+        //同向双指针！
+        Arrays.sort(nums);
+        int n = nums.length;
+        int cnt = 0;
+        //如[1,2,3,4,5,6,7]
+        for(int i = n - 1; i >= 2; i--){
+            //枚举最长边 nums[a]
+            for(int j = i - 1; j >= 1; j--){
+                //枚举次长边 nums[b]
+                int k = j - 1;
+                while(k >= 0 && nums[j] + nums[k] > nums[i]){
+                    cnt++;
+                    k--;
+                }
+            }
+        }
+        return cnt;
+    }
+}
