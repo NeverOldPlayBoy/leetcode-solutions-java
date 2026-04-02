@@ -1,0 +1,28 @@
+class Solution {
+    public List<Integer> findKDistantIndices(int[] nums, int key, int k) {
+        //记录 lastOccur 
+        //合法的 i 应该满足：i - k <= preLast 或者 i + k >= nextLast. 
+        //对于任意的 i, 先向后有没有 key, 再向前看有没有 key.
+        int last = -k - 1;// 确保 last < 0 - k;
+        for(int i = k - 1; i >= 0; i--){
+            if(nums[i] == key){
+                last = i;
+                break;
+            }
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        int n = nums.length;
+        for(int i = 0; i < n; i++){
+            //向前看，如果有 key 则更新 last.
+            if(i + k < n && nums[i + k] == key){
+                last = i + k;
+            }
+            //last <= i + k 必然成立。
+            if(i - k <= last){
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
+}
