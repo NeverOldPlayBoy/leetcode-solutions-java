@@ -1,0 +1,20 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int n = nums.length;
+        int j = 1;//用 j 维护栈的大小,即未填写数字的最小下标。
+        int cnt = 1;
+        for(int i = 1; i < n; i++){
+            if(nums[i] == nums[j - 1]){
+                //已经够2个
+                cnt++;
+            }else{
+                //把cnt重置为1.
+                cnt = 1;
+            }
+            if(cnt <= 2){
+                nums[j++] = nums[i];
+            }
+        }
+        return j;
+    }
+}
