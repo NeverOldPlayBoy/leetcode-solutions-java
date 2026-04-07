@@ -1,0 +1,14 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int i0 = 0;//记录左边空位的最小下标。
+        for(int i = 0; i < nums.length; i++){
+            //当 Num[i] != 0 时，填入空位，i0 右移，并在 i 处产生新的空位。
+            if(nums[i] != 0){
+                //交换 nums[i] and nums[i0],而不是：先nums[i0++] = nums[i]，后nums[i] = 0;
+                int tmp = nums[i0];
+                nums[i0++] = nums[i];
+                nums[i] = tmp;
+            }
+        }        
+    }
+}
