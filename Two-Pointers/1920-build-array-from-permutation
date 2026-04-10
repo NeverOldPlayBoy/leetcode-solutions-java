@@ -1,0 +1,32 @@
+class Solution {
+    public int[] buildArray(int[] nums) {
+        //用负数标记：已经被交换过。
+        int n = nums.length;
+        for(int i = 0; i < n; i++){
+            nums[i] += 1;
+        }
+
+        for(int i = 0; i < n; i++){
+            int cur = i;
+            //记下： head and headVal.
+            int headVal = nums[cur];
+            if(headVal <= 0){
+                continue;
+            }
+
+            while(nums[cur] > 0 && nums[cur] - 1 != i){
+                int nxt = nums[cur] - 1;
+                //nxt 可能为0吗？不会等于0.
+                nums[cur] = -(nums[nxt] - 1);
+                cur = nxt;
+            }
+
+            nums[cur] = -(headVal - 1);
+        }
+
+        for(int i = 0; i < n; i++){
+            nums[i] = -nums[i];
+        }
+        return nums;    
+    }
+}
