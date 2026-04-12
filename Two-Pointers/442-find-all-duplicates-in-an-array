@@ -1,0 +1,17 @@
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        //以 nums[i] 为下标去访问 nums[],被访问两次的位置，即是重复的数字！
+        List<Integer> ans = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++){
+            //j 是下一个被查看的下标，j 可能已被修改！
+            int j = Math.abs(nums[i]) - 1;
+
+            if(nums[j] < 0){//已被访问过。
+                ans.add(j + 1);
+            }else{
+                nums[j] = -nums[j];
+            }
+        }
+        return ans;
+    }
+}
