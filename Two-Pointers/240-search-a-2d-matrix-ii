@@ -1,0 +1,16 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int i = 0, j = n - 1;//从右上角开始撕纸条！
+        while(i < m && j >= 0){//如果还有纸条可以撕。       
+            if(matrix[i][j] == target) return true;
+            if(matrix[i][j] > target){
+                j--;
+            }else{
+                i++;
+            }
+        }
+        return false;
+    }
+}
