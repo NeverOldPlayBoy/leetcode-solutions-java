@@ -1,0 +1,22 @@
+public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
+        //对于任意的 x , 分三种情况讨论：
+        //1.如果 [left, right] 中 left < x < right ,则随着 x 的增大， distance 先减小，后增大！
+        //如果 min_distance > d, 则 x 合法！
+        //2. if right < x , 则 distance 单调递增！
+        //3. if x < left, 则distance 随 x 单调递减。
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        int n2 = arr2.length;
+        int cnt = 0;
+        int j = 0;
+        for (int x : arr1) {
+            //如果距离相等，也 j++
+            while (j + 1 < n2 && Math.abs(x - arr2[j]) >= Math.abs(x - arr2[j + 1])) {
+                j++;
+            }
+            //跳出 while() 时，j + 1 == n2 或者 |x - arr2[j]| <= |x - arr2[j + 1]|.
+            //总之，|x - arr2[j]| 就是最小距离。
+            if (Math.abs(x - arr2[j]) > d) cnt++;
+        }
+        return cnt;
+    }
