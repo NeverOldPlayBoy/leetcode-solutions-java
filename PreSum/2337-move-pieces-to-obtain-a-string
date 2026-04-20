@@ -1,0 +1,32 @@
+class Solution {
+    public boolean canChange(String start, String target) {
+        char[] s = start.toCharArray();
+        char[] t = target.toCharArray();
+        int i = 0;
+        int debtL = 0, debtR = 0;
+
+        while(i < s.length){
+            //如果已经有L欠账，那么 s[i] or t[i] 都不能是 R!
+            if(debtL > 0 && (s[i] == 'R' || t[i] == 'R')) return false;
+            //如果已经有R还款，那么，s[i] or t[i] 都不能是 L！
+            if(debtR < 0 && (s[i] == 'L' || t[i] == 'L')) return false;
+
+            if(t[i] == 'L'){
+                debtL++;
+            }else if(t[i] == 'R'){
+                debtR++;
+            }
+
+            if(s[i] == 'L'){
+                debtL--;
+            }else if(s[i] == 'R'){
+                debtR--;
+            }
+
+            //L不能提前还款，R必须提前还款！即 debtL 不能 < 0, debtR 必须 <= 0.
+            if(debtL < 0 || debtR > 0) return false;
+            i++;
+        }
+        return debtL == 0 && debtR == 0;
+    }
+}
