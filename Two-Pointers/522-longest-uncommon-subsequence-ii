@@ -1,0 +1,29 @@
+class Solution {
+    public int findLUSlength(String[] strs) {
+        //排序 + 枚举
+        Arrays.sort(strs, (a, b) -> b.length() - a.length());
+
+        next: // 这是一个标签，标记 continue 的后续执行位置！
+        for(int i = 0; i < strs.length; i++){
+            for(int j = 0; j < strs.length; j++){
+                //j from 0 to n - 1.
+                if(j != i && isSubSequence(strs[j], strs[i])){
+                    continue next;
+                }
+            }
+            return strs[i].length();
+        }
+        
+        return -1;
+    }
+    private boolean isSubSequence(String s, String t){
+        //return t 是否为 s 的子序列。
+        int j = 0;
+        for(int i = 0; i < s.length(); i++){
+            if(t.charAt(j) == s.charAt(i) && ++j == t.length()){
+                return true;
+            }
+        }
+        return false;
+    }
+}
