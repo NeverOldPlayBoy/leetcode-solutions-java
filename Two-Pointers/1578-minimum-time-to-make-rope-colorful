@@ -1,0 +1,25 @@
+class Solution {
+    public int minCost(String colors, int[] neededTime) {
+        //相同颜色的气球，把时间最长的留下来。
+        char[] s = colors.toCharArray();
+        int n = s.length;
+        int i = 0;
+        int ans = 0;
+        while(i < n){
+            char ch = s[i];
+            int start = i;
+            int mt = neededTime[i];//mt -> maxtime.
+            int sum = mt;
+            while(++i < n && s[i] == ch){
+                mt = Math.max(neededTime[i], mt);
+                sum += neededTime[i];
+            }
+            //i -> n or s[i] != ch;
+            //如果本组只有1个元素，则不用删除！否则，只留下时间最长的元素。
+            if(i > start + 1){
+                ans += (sum - mt);
+            }
+        }
+        return ans;
+    }
+}
