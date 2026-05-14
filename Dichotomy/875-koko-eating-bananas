@@ -1,0 +1,28 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int upper = Integer.MIN_VALUE;
+        for(int p : piles){
+            upper = Math.max(upper, p);
+        }
+        //因 n <= h, 故按最大值去吃，必能吃完！
+        int lower = 0;
+        while(lower + 1 < upper){
+            int mid = lower + (upper - lower) / 2;
+            if(check(piles, h, mid)){
+                upper = mid;
+            }else{
+                lower = mid;
+            }
+        }
+        return upper;
+    }
+
+    private boolean check(int[] piles, int h, int mid){
+        int cnt = 0;
+        for(int p : piles){
+            cnt += (p - 1) / mid + 1; // p / mid 向上取整！
+            if(cnt > h) return false;
+        }
+        return true;
+    }
+}
