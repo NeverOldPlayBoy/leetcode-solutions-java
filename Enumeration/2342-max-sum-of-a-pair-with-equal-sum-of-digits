@@ -1,0 +1,25 @@
+class Solution {
+    public int maximumSum(int[] nums) {
+        int ans = -1;
+        Map<Integer, Integer> map = new HashMap<>();//<digitsSum, x>
+        for(int x : nums){
+            int ds = digitsSum(x);
+            if(!map.containsKey(ds)){
+                map.put(ds, x);
+            }else{
+                ans = Math.max(ans, x + map.get(ds));
+                if(map.get(ds) < x) map.put(ds, x);
+            }
+        }
+        return ans;        
+    }
+
+    private int digitsSum(int x){
+        int sum = 0;
+        while(x > 0){
+            sum += x % 10;
+            x /= 10;
+        }
+        return sum;
+    }
+}
