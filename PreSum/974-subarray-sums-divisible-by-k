@@ -1,0 +1,19 @@
+class Solution {
+    public int subarraysDivByK(int[] nums, int k) {
+        //数组哈希写法：
+        int ps = 0;
+        int cnt = 0;
+
+        int[] map = new int[k];//boolean[] has 可省略！        
+        map[ps]++;
+
+        for(int x : nums){
+            //即使 a = (ps + x) % k 是负数，(a + k) % k 也能在 [0, k) 范围内！
+            ps = ((ps + x) % k + k) % k;
+            cnt += map[ps];
+            map[ps]++;
+        }
+
+        return cnt;
+    }
+}
